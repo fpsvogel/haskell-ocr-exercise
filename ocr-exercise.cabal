@@ -1,0 +1,36 @@
+cabal-version: 3.0
+name: ocr-exercise
+version: 0.1.0.0
+author: Felipe Vogel
+maintainer: fps.vogel@gmail.com
+category: Demo
+license: MIT
+license-file: LICENSE
+extra-doc-files: CHANGELOG.md
+build-type: Simple
+
+common warnings
+  ghc-options: -Wall
+
+library
+  hs-source-dirs: src
+  -- exposed-modules:
+  build-depends: base ^>=4.17.2.1
+  default-language: GHC2021
+
+executable ocr-exercise
+  import: warnings
+  hs-source-dirs: app
+  main-is: Main.hs
+  build-depends: base ^>=4.17.2.1, ocr-exercise
+  default-language: GHC2021
+
+test-suite tests
+  type: exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is: Spec.hs
+  -- other-modules:
+  build-depends: base ^>=4.17.2.1, hspec, doctest, ocr-exercise
+  default-language: GHC2021
+  ghc-options: -Wno-missing-home-modules
+  build-tool-depends: hspec-discover:hspec-discover

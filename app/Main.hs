@@ -1,23 +1,54 @@
 module Main where
 
+import System.Directory (listDirectory)
+import System.FilePath ((</>))
+import System.IO (hFlush, stdout)
+import System.Exit (exitSuccess)
+import Data.List (intercalate)
+import Data.Foldable (for_)
+
+import Digits.Read
+import Digits.Parse
+
 main :: IO ()
 main = do
-  putStr "placeholder"
+  operation <- getOperationChoice operationNames "for an option below"
+  (fileName, fileContents) <- getFileChoice operation
+  doOperation operation fileName fileContents
 
--- main :: IO ()
--- main = do
---   putStrLn "Welcome, adventurer, to the Rusty Scabbard Inn. What's your name?"
---   name <- getLine
---   putStrLn ("Hello, " ++ name ++ ", what would you like to do this evening?")
---   putStrLn possibleActionsLn
---   choice <- getLine
---   putStrLn ("Thank you for your input! You chose " ++ choice ++ ". Good night.")
+operationNames :: [String]
+operationNames = ["parse"]
 
--- possibleActionsLn :: String
--- possibleActionsLn = unlines $ addNumbering possibleActions
+doOperation :: String -> String -> String -> IO ()
+doOperation "parse" fileName fileContents = do
+  putStrLn $ "\nThese are the policy numbers in " ++ fileName ++ ":\n"
+  let results = map parseDigits $ readDigits fileContents
+  putStrLn $ intercalate "\n" results
+doOperation _ _ _ = do
+  error "Bad input was accepted. Check `operationNames` in Main.hs."
 
--- addNumbering :: [String] -> [String]
--- addNumbering = zipWith (\n str -> show (n :: Int) ++ ". " ++ str) [1..]
+getFileChoice :: String -> IO (String, String)
+getFileChoice operationName = do
+  ocrFileNames <- listDirectory "fixtures/ocr"
+  fileName <- getOperationChoice ocrFileNames ("to " ++ operationName ++ " the corresponding sample file")
+  fileContents <- readFile ("fixtures/ocr" </> fileName)
+  return (fileName, fileContents)
 
--- possibleActions :: [String]
--- possibleActions = ["Eat", "Drink", "Sleep", "Brawl", "Gamble", "Beg"]
+getOperationChoice :: [String] -> String -> IO String
+getOperationChoice options description = do
+  putStrLn $ "\nPlease enter a number " ++ description ++ ":\n"
+  for_ (zip [(1::Int)..] options) $ \(n, fileName) -> do
+    putStrLn $ show n ++ ". " ++ fileName
+  putStr "\n> "
+  hFlush stdout
+  userChoice <- getLine
+
+  if userChoice `elem` ["e", "exit", "q", "quit"]
+    then exitSuccess
+  else if read userChoice `elem` [1 .. length options]
+    then do
+      return (options !! (read userChoice - 1))
+  else do
+    putStrLn "\nOops, that's not an option."
+    getOperationChoice options description
+

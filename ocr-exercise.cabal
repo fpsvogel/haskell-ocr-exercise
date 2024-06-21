@@ -14,22 +14,22 @@ common warnings
 
 library
   hs-source-dirs: src
-  -- exposed-modules:
-  build-depends: base ^>=4.17.2.1
+  exposed-modules: Digits.Parse Digits.Read EntriesFile PolicyNumber SevenSegmentDigit
+  build-depends: base ^>=4.17.2.1, flow, split
   default-language: GHC2021
 
 executable ocr-exercise
   import: warnings
   hs-source-dirs: app
   main-is: Main.hs
-  build-depends: base ^>=4.17.2.1, ocr-exercise
+  build-depends: base ^>=4.17.2.1, ocr-exercise, directory, filepath
   default-language: GHC2021
 
 test-suite tests
   type: exitcode-stdio-1.0
   hs-source-dirs: test
   main-is: Spec.hs
-  -- other-modules:
+  other-modules: Digits.ParseSpec Digits.ReadSpec
   build-depends: base ^>=4.17.2.1, hspec, doctest, ocr-exercise
   default-language: GHC2021
   ghc-options: -Wno-missing-home-modules

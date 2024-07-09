@@ -2,6 +2,7 @@ module Digits.ParseSpec where
 
 import Test.Hspec
 import Digits.Parse (parseDigits)
+import PolicyNumber
 
 input :: [[String]]
 input =
@@ -24,11 +25,11 @@ input =
     ]
   ]
 
-output :: [String]
-output = ["00", "12"]
+output :: [PolicyNumber]
+output = [fromStr "00", fromStr "12"]
 
 spec :: Spec
 spec = do
   describe "parseDigits" $ do
-    it "transforms seven-segment digit strings into number strings" $ do
+    it "transforms seven-segment digit strings into PolicyNumbers" $ do
       map parseDigits input `shouldBe` output

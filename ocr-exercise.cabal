@@ -18,7 +18,10 @@ library
     Digits.Parse
     Digits.Read
     EntriesFile
+    ParsedDigit
     PolicyNumber
+    PolicyNumbers.Analyze
+    PolicyNumbers.Status
     PolicyNumbers.Validate
     SevenSegmentDigit
 

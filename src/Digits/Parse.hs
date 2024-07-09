@@ -2,10 +2,11 @@ module Digits.Parse (parseDigits) where
 
 import SevenSegmentDigit
 import PolicyNumber
+import ParsedDigit
 
-import Flow
+import Flow ()
 
--- | Transforms seven-segment digit strings into number strings.
+-- | Transforms seven-segment digit strings into PolicyNumbers.
 --
 -- Examples:
 --
@@ -30,62 +31,62 @@ import Flow
 --          \|_ "
 --        ]
 --      ]
---    output = ["00","12"]
+--    output = [fromStr "00", fromStr "12"]
 --  in map parseDigits input == output
 -- :}
 -- True
 parseDigits :: [SevenSegmentDigit] -> PolicyNumber
-parseDigits = map (parseDigit .> show) .> concat
+parseDigits = map parseDigit
 
-parseDigit :: String -> Int
+parseDigit :: String -> ParsedDigit
 parseDigit
   " _ \
   \| |\
-  \|_|" = 0
+  \|_|" = ParsedInt 0
 
 parseDigit
   "   \
   \  |\
-  \  |" = 1
+  \  |" = ParsedInt 1
 
 parseDigit
   " _ \
   \ _|\
-  \|_ " = 2
+  \|_ " = ParsedInt 2
 
 parseDigit
   " _ \
   \ _|\
-  \ _|" = 3
+  \ _|" = ParsedInt 3
 
 parseDigit
   "   \
   \|_|\
-  \  |" = 4
+  \  |" = ParsedInt 4
 
 parseDigit
   " _ \
   \|_ \
-  \ _|" = 5
+  \ _|" = ParsedInt 5
 
 parseDigit
   " _ \
   \|_ \
-  \|_|" = 6
+  \|_|" = ParsedInt 6
 
 parseDigit
   " _ \
   \  |\
-  \  |" = 7
+  \  |" = ParsedInt 7
 
 parseDigit
   " _ \
   \|_|\
-  \|_|" = 8
+  \|_|" = ParsedInt 8
 
 parseDigit
   " _ \
   \|_|\
-  \ _|" = 9
+  \ _|" = ParsedInt 9
 
-parseDigit _ = 0
+parseDigit _ = Unparsable

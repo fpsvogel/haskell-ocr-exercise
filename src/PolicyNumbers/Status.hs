@@ -3,16 +3,18 @@ module PolicyNumbers.Status (Status(..), status) where
 import PolicyNumber
 import ParsedDigit
 import PolicyNumbers.Validate
+import PolicyNumbers.Corrections
 
 import Flow
 
-data Status = Valid | Error | Illegible deriving Eq
+data Status = Valid | Error | Illegible | Ambiguous deriving Eq
 
 instance Show Status where
   show :: Status -> String
   show Valid = "OK"
   show Error = "ERR"
   show Illegible = "ILL"
+  show Ambiguous = "AMB"
 
 -- | Returns a PolicyNumber's Status.
 --

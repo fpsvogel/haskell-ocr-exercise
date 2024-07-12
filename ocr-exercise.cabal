@@ -15,12 +15,14 @@ common warnings
 library
   hs-source-dirs: src
   exposed-modules:
+    Digits.Corrections
     Digits.Parse
     Digits.Read
     EntriesFile
     ParsedDigit
     PolicyNumber
     PolicyNumbers.Analyze
+    PolicyNumbers.Corrections
     PolicyNumbers.Status
     PolicyNumbers.Validate
     SevenSegmentDigit

@@ -20,13 +20,13 @@ main = do
   doOperation operation
 
 operationNames :: [String]
-operationNames = ["parse", "validate", "analyze"]
+operationNames = ["parse", "validate", "analyze", "analyze and correct"]
 
 doOperation :: String -> IO ()
 doOperation "parse" = do
   (fileName, fileContents) <- getFileChoice "parse"
   putStrLn <| "\nThese are the policy numbers in " ++ fileName ++ ":\n"
-  let results = readDigits fileContents |> map (parseDigits .> toStr)
+  let results = readDigits fileContents |> map (parse .> toStr)
   putStrLn <| intercalate "\n" results ++ "\n"
 doOperation "validate" = do
   putStrLn <| "\nPlease enter a policy number to validate:\n"
@@ -38,7 +38,12 @@ doOperation "validate" = do
 doOperation "analyze" = do
   (fileName, fileContents) <- getFileChoice "analyze"
   putStrLn <| "\nHere is an analysis of " ++ fileName ++ ":\n"
-  let results = readDigits fileContents |> map (parseDigits .> analyze)
+  let results = readDigits fileContents |> map (parse .> analyze)
+  putStrLn <| intercalate "\n" results ++ "\n"
+doOperation "analyze and correct" = do
+  (fileName, fileContents) <- getFileChoice "analyze and correct"
+  putStrLn <| "\nHere is an analysis and correction of " ++ fileName ++ ":\n"
+  let results = readDigits fileContents |> map analyzeAndCorrect
   putStrLn <| intercalate "\n" results ++ "\n"
 doOperation _ = do
   error "Bad input was accepted. Check `operationNames` in Main.hs."

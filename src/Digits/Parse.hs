@@ -1,10 +1,12 @@
-module Digits.Parse (parseDigits) where
+module Digits.Parse (parse, digitStrings) where
 
 import SevenSegmentDigit
 import PolicyNumber
 import ParsedDigit
 
-import Flow ()
+import Flow
+import Data.List (elemIndex)
+import Data.Maybe (fromMaybe)
 
 -- | Transforms seven-segment digit strings into PolicyNumbers.
 --
@@ -32,61 +34,11 @@ import Flow ()
 --        ]
 --      ]
 --    output = [fromStr "00", fromStr "12"]
---  in map parseDigits input == output
+--  in map parse input == output
 -- :}
 -- True
-parseDigits :: [SevenSegmentDigit] -> PolicyNumber
-parseDigits = map parseDigit
+parse :: [SevenSegmentDigit] -> PolicyNumber
+parse = map parseDigit
 
 parseDigit :: String -> ParsedDigit
-parseDigit
-  " _ \
-  \| |\
-  \|_|" = ParsedInt 0
-
-parseDigit
-  "   \
-  \  |\
-  \  |" = ParsedInt 1
-
-parseDigit
-  " _ \
-  \ _|\
-  \|_ " = ParsedInt 2
-
-parseDigit
-  " _ \
-  \ _|\
-  \ _|" = ParsedInt 3
-
-parseDigit
-  "   \
-  \|_|\
-  \  |" = ParsedInt 4
-
-parseDigit
-  " _ \
-  \|_ \
-  \ _|" = ParsedInt 5
-
-parseDigit
-  " _ \
-  \|_ \
-  \|_|" = ParsedInt 6
-
-parseDigit
-  " _ \
-  \  |\
-  \  |" = ParsedInt 7
-
-parseDigit
-  " _ \
-  \|_|\
-  \|_|" = ParsedInt 8
-
-parseDigit
-  " _ \
-  \|_|\
-  \ _|" = ParsedInt 9
-
-parseDigit _ = Unparsable
+parseDigit str = maybe Unparsable ParsedInt (elemIndex str digitStrings)

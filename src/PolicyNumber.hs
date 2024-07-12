@@ -1,6 +1,7 @@
-module PolicyNumber (PolicyNumber, toStr, fromStr) where
+module PolicyNumber (PolicyNumber, toStr, fromStr, toDigits) where
 
 import ParsedDigit
+import SevenSegmentDigit
 
 import Flow
 
@@ -16,3 +17,6 @@ toStr = map toChar
 
 fromStr :: String -> PolicyNumber
 fromStr = map fromChar
+
+toDigits :: PolicyNumber -> [SevenSegmentDigit]
+toDigits = map toDigit

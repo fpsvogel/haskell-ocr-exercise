@@ -1,7 +1,7 @@
 module Digits.ReadSpec where
 
 import Test.Hspec
-import Digits.Read (readDigits)
+import Digits.Read
 
 input :: String
 input =

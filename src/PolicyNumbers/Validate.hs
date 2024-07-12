@@ -1,6 +1,7 @@
 module PolicyNumbers.Validate (validate) where
 
 import PolicyNumber
+import ParsedDigit
 
 import Flow
 import Data.Char (digitToInt)
@@ -17,31 +18,32 @@ import Data.Char (digitToInt)
 --
 -- >>> :{
 --  let
---    inputs =
---      [ fromStr "345882865"
---      , fromStr "457508000"
---      , fromStr "123456789"
---      , fromStr "000000000"
---      , fromStr "111111110"
---      , fromStr "322222222" ]
+--    inputs = map fromStr
+--      [ "345882865"
+--      , "457508000"
+--      , "123456789"
+--      , "000000000"
+--      , "111111110"
+--      , "322222222" ]
 --  in all (== True) <| map validate inputs
 -- :}
 -- True
 --
 -- >>> :{
 --  let
---    inputs =
---      [ fromStr "987654321"
---      , fromStr "664371495"
---      , fromStr "333333333"
---      , fromStr "999999999"
---      , fromStr "12345678"
---      , fromStr "000" ]
+--    inputs = map fromStr
+--      [ "987654321"
+--      , "664371495"
+--      , "333333333"
+--      , "999999999"
+--      , "12345678"
+--      , "000" ]
 --  in all (== False) <| map validate inputs
 -- :}
 -- True
 validate :: PolicyNumber -> Bool
 validate pn
+  | Unparsable `elem` pn = False
   | length pn /= 9 = False
   | otherwise = (dotProduct `mod` 11) == 0
   where

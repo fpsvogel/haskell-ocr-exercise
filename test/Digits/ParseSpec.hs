@@ -26,7 +26,7 @@ input =
   ]
 
 output :: [PolicyNumber]
-output = [fromStr "00", fromStr "12"]
+output = [fromString "00", fromString "12"]
 
 spec :: Spec
 spec = do

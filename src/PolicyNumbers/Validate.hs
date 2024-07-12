@@ -18,7 +18,7 @@ import Data.Char (digitToInt)
 --
 -- >>> :{
 --  let
---    inputs = map fromStr
+--    inputs = map fromString
 --      [ "345882865"
 --      , "457508000"
 --      , "123456789"
@@ -31,11 +31,12 @@ import Data.Char (digitToInt)
 --
 -- >>> :{
 --  let
---    inputs = map fromStr
+--    inputs = map fromString
 --      [ "987654321"
 --      , "664371495"
 --      , "333333333"
 --      , "999999999"
+--      , "??0000000"
 --      , "12345678"
 --      , "000" ]
 --  in all (== False) <| map validate inputs
@@ -47,5 +48,5 @@ validate pn
   | length pn /= 9 = False
   | otherwise = (dotProduct `mod` 11) == 0
   where
-    reverseIntegers = map digitToInt <| reverse <| toStr pn
+    reverseIntegers = show pn |> reverse |> map digitToInt
     dotProduct = sum <| zipWith (*) [1..9] reverseIntegers

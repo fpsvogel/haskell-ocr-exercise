@@ -15,8 +15,8 @@ import Flow
 --
 -- >>> :{
 --  let
---    input = toDigits (fromStr "345082865")
---    output = map fromStr ["345882865","345082885","345082869"]
+--    input = toDigits (fromString "345082865")
+--    output = map fromString ["345882865","345082885","345082869"]
 --  in corrections input == output
 -- :}
 -- True

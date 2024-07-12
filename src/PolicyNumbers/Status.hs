@@ -22,21 +22,21 @@ instance Show Status where
 --
 -- >>> :{
 --  let
---    input = fromStr "345882865"
+--    input = fromString "345882865"
 --  in status input
 -- :}
 -- OK
 --
 -- >>> :{
 --  let
---    input = fromStr "987654321"
+--    input = fromString "987654321"
 --  in status input
 -- :}
 -- ERR
 --
 -- >>> :{
 --  let
---    input = fromStr "??5882865"
+--    input = fromString "??5882865"
 --  in status input
 -- :}
 -- ILL

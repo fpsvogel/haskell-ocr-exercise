@@ -33,7 +33,7 @@ import Data.Maybe (fromMaybe)
 --          \|_ "
 --        ]
 --      ]
---    output = [fromStr "00", fromStr "12"]
+--    output = [fromString "00", fromString "12"]
 --  in map parse input == output
 -- :}
 -- True

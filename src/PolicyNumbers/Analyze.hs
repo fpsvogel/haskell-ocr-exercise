@@ -14,21 +14,21 @@ import Flow
 --
 -- >>> :{
 --  let
---    input = fromStr "345882865"
+--    input = fromString "345882865"
 --  in analyze input
 -- :}
 -- "345882865"
 --
 -- >>> :{
 --  let
---    input = fromStr "987654321"
+--    input = fromString "987654321"
 --  in analyze input
 -- :}
 -- "987654321\tERR"
 --
 -- >>> :{
 --  let
---    input = fromStr "??5882865"
+--    input = fromString "??5882865"
 --  in analyze input
 -- :}
 -- "??5882865\tILL"
@@ -44,35 +44,35 @@ analyze pn
 --
 -- >>> :{
 --  let
---    input = toDigits (fromStr "345882865")
+--    input = toDigits (fromString "345882865")
 --  in analyzeAndCorrect input
 -- :}
 -- "345882865"
 --
 -- >>> :{
 --  let
---    input = toDigits (fromStr "123456189")
+--    input = toDigits (fromString "123456189")
 --  in analyzeAndCorrect input
 -- :}
 -- "123456789"
 --
 -- >>> :{
 --  let
---    input = toDigits (fromStr "000")
+--    input = toDigits (fromString "000")
 --  in analyzeAndCorrect input
 -- :}
 -- "000\tERR"
 --
 -- >>> :{
 --  let
---    input = toDigits (fromStr "??5882865")
+--    input = toDigits (fromString "??5882865")
 --  in analyzeAndCorrect input
 -- :}
 -- "??5882865\tILL"
 --
 -- >>> :{
 --  let
---    input = toDigits (fromStr "345082865")
+--    input = toDigits (fromString "345082865")
 --  in analyzeAndCorrect input
 -- :}
 -- "345082865\tAMB"

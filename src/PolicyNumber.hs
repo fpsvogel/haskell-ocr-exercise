@@ -1,4 +1,4 @@
-module PolicyNumber (PolicyNumber, toStr, fromStr, toDigits) where
+module PolicyNumber (PolicyNumber, show, fromString, toDigits) where
 
 import ParsedDigit
 import SevenSegmentDigit
@@ -7,16 +7,12 @@ import Flow
 
 type PolicyNumber = [ParsedDigit]
 
--- TODO find how to get around error "overlapping instances of Show"
 instance {-# OVERLAPPING #-} Show PolicyNumber where
   show :: PolicyNumber -> String
   show = map toChar
 
-toStr :: PolicyNumber -> String
-toStr = map toChar
-
-fromStr :: String -> PolicyNumber
-fromStr = map fromChar
+fromString :: String -> PolicyNumber
+fromString = map fromChar
 
 toDigits :: PolicyNumber -> [SevenSegmentDigit]
 toDigits = map toDigit

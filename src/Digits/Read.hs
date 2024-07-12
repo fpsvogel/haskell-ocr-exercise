@@ -20,7 +20,8 @@ import Data.List (transpose)
 --      \      \n\
 --      \    _ \n\
 --      \  | _|\n\
---      \  ||_ "
+--      \  ||_ \n\
+--      \      "
 --    output =
 --      [
 --        [

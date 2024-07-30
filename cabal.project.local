@@ -1,0 +1,3 @@
+-- result of running: cabal configure --enable-tests
+ignore-project: False
+tests: True

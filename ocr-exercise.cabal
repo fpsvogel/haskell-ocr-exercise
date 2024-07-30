@@ -27,14 +27,14 @@ library
     PolicyNumbers.Validate
     SevenSegmentDigit
 
-  build-depends: base ^>=4.17.2.1, flow, split
+  build-depends: base, flow, split
   default-language: GHC2021
 
 executable ocr-exercise
   import: warnings
   hs-source-dirs: app
   main-is: Main.hs
-  build-depends: base ^>=4.17.2.1, directory, filepath, flow, ocr-exercise
+  build-depends: base, directory, filepath, flow, ocr-exercise
   default-language: GHC2021
 
 test-suite tests
@@ -42,7 +42,7 @@ test-suite tests
   hs-source-dirs: test
   main-is: Spec.hs
   other-modules: Digits.ParseSpec Digits.ReadSpec
-  build-depends: base ^>=4.17.2.1, doctest, hspec, ocr-exercise
+  build-depends: base, doctest, hspec, ocr-exercise
   default-language: GHC2021
   ghc-options: -Wno-missing-home-modules
   build-tool-depends: hspec-discover:hspec-discover

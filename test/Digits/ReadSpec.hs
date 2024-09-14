@@ -1,7 +1,7 @@
 module Digits.ReadSpec where
 
-import Test.Hspec
 import Digits.Read
+import Test.Hspec
 
 input :: String
 input =
@@ -15,20 +15,17 @@ input =
 
 output :: [[String]]
 output =
-  [
-    [
+  [ [ " _ \
+      \| |\
+      \|_|",
       " _ \
       \| |\
       \|_|"
-    , " _ \
-      \| |\
-      \|_|"
     ],
-    [
-      "   \
+    [ "   \
       \  |\
-      \  |"
-    , " _ \
+      \  |",
+      " _ \
       \ _|\
       \|_ "
     ]

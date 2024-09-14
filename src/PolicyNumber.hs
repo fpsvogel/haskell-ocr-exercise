@@ -1,9 +1,8 @@
 module PolicyNumber (PolicyNumber, show, fromString, toDigits) where
 
+import Flow
 import ParsedDigit
 import SevenSegmentDigit
-
-import Flow
 
 type PolicyNumber = [ParsedDigit]
 

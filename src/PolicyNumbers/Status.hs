@@ -1,13 +1,12 @@
-module PolicyNumbers.Status (Status(..), status) where
-
-import PolicyNumber
-import ParsedDigit
-import PolicyNumbers.Validate
-import PolicyNumbers.Corrections
+module PolicyNumbers.Status (Status (..), status) where
 
 import Flow
+import ParsedDigit
+import PolicyNumber
+import PolicyNumbers.Corrections
+import PolicyNumbers.Validate
 
-data Status = Valid | Error | Illegible | Ambiguous deriving Eq
+data Status = Valid | Error | Illegible | Ambiguous deriving (Eq)
 
 instance Show Status where
   show :: Status -> String

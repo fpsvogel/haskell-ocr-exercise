@@ -1,25 +1,22 @@
 module Digits.ParseSpec where
 
-import Test.Hspec
 import Digits.Parse
 import PolicyNumber
+import Test.Hspec
 
 input :: [[String]]
 input =
-  [
-    [
+  [ [ " _ \
+      \| |\
+      \|_|",
       " _ \
       \| |\
       \|_|"
-    , " _ \
-      \| |\
-      \|_|"
     ],
-    [
-      "   \
+    [ "   \
       \  |\
-      \  |"
-    , " _ \
+      \  |",
+      " _ \
       \ _|\
       \|_ "
     ]

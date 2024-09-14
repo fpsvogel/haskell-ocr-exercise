@@ -1,19 +1,18 @@
 module Main where
 
+import Data.Foldable (for_)
+import Data.List (intercalate)
+import Digits.Parse
+import Digits.Read
+import Flow
+import PolicyNumber
+import PolicyNumbers.Analyze
+import PolicyNumbers.Validate
+import SevenSegmentDigit
 import System.Directory (listDirectory)
+import System.Exit (exitSuccess)
 import System.FilePath ((</>))
 import System.IO (hFlush, stdout)
-import System.Exit (exitSuccess)
-import Data.List (intercalate)
-import Data.Foldable (for_)
-import Flow
-
-import Digits.Read
-import Digits.Parse
-import PolicyNumbers.Validate
-import PolicyNumbers.Analyze
-import PolicyNumber
-import SevenSegmentDigit
 
 main :: IO ()
 main = do
@@ -31,11 +30,12 @@ doOp "validate" = do
   pn <- getLine
   if pn `elem` ["e", "exit", "q", "quit"]
     then exitSuccess
-  else do
-    let result = validate (fromString pn)
-    putStrLn <| "\n" ++ reportResult result ++ "\n"
-      where reportResult True = "Hooray, that's a VALID policy number 🎉"
-            reportResult False = "Nope, that's an INVALID policy number (ノಠ益ಠ)ノ彡┻━┻"
+    else do
+      let result = validate (fromString pn)
+      putStrLn <| "\n" ++ reportResult result ++ "\n"
+  where
+    reportResult True = "Hooray, that's a VALID policy number 🎉"
+    reportResult False = "Nope, that's an INVALID policy number (ノಠ益ಠ)ノ彡┻━┻"
 doOp "analyze" = do
   doFileOp "analyze" "Here is an analysis of" (parse .> analyze)
 doOp "analyze and correct" = do
@@ -60,18 +60,18 @@ getFileChoice opName = do
 getOpChoice :: [String] -> String -> IO String
 getOpChoice options description = do
   putStrLn <| "\nPlease enter a number " ++ description ++ ":\n"
-  for_ (zip [(1::Int)..] options) <| \(n, fileName) -> do
-    putStrLn <| show n ++ ". " ++ fileName
+  for_ (zip [(1 :: Int) ..] options) <| \(n, option) -> do
+    putStrLn <| show n ++ ". " ++ option
   putStr "\n> "
   hFlush stdout
   choice <- getLine
 
   if choice `elem` ["e", "exit", "q", "quit"]
     then exitSuccess
-  else if read choice `elem` [1 .. length options]
-    then do
-      return (options !! (read choice - 1))
-  else do
-    putStrLn "\nOops, that's not an option."
-    getOpChoice options description
-
+    else
+      if read choice `elem` [1 .. length options]
+        then do
+          return (options !! (read choice - 1))
+        else do
+          putStrLn "\nOops, that's not an option."
+          getOpChoice options description

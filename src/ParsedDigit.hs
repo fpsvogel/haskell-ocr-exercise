@@ -1,9 +1,9 @@
-module ParsedDigit (ParsedDigit(..), toChar, fromChar, toDigit) where
+module ParsedDigit (ParsedDigit (..), toChar, fromChar, toDigit) where
 
 import Data.Char (digitToInt)
 import SevenSegmentDigit
 
-data ParsedDigit = Unparsable | ParsedInt Int deriving Eq
+data ParsedDigit = Unparsable | ParsedInt Int deriving (Eq)
 
 toChar :: ParsedDigit -> Char
 toChar Unparsable = '?'

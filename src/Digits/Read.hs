@@ -1,11 +1,10 @@
 module Digits.Read (readDigits) where
 
-import EntriesFile
-import SevenSegmentDigit
-
-import Flow
-import Data.List.Split (chunksOf)
 import Data.List (transpose)
+import Data.List.Split (chunksOf)
+import EntriesFile
+import Flow
+import SevenSegmentDigit
 
 -- | Transforms policy file contents into lists of seven-segment digit strings.
 --
@@ -50,15 +49,17 @@ readDigits = splitEntries .> transposeToDigits
 splitEntries :: String -> [[String]]
 splitEntries =
   lines
-  .> chunksOf entryHeightInLines
-  .> map (take (entryHeightInLines - entryTrailingEmptyLines))
-  where entryHeightInLines = 4
-        entryTrailingEmptyLines = 1
+    .> chunksOf entryHeightInLines
+    .> map (take (entryHeightInLines - entryTrailingEmptyLines))
+  where
+    entryHeightInLines = 4
+    entryTrailingEmptyLines = 1
 
 transposeToDigits :: [[String]] -> [[String]]
 transposeToDigits =
   map <|
     map (chunksOf entryWidthInChars)
-    .> transpose
-    .> map concat
-  where entryWidthInChars = 3
+      .> transpose
+      .> map concat
+  where
+    entryWidthInChars = 3

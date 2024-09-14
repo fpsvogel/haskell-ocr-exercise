@@ -1,12 +1,11 @@
 module Digits.Parse (parse, digitStrings) where
 
-import SevenSegmentDigit
-import PolicyNumber
-import ParsedDigit
-
-import Flow
 import Data.List (elemIndex)
 import Data.Maybe (fromMaybe)
+import Flow
+import ParsedDigit
+import PolicyNumber
+import SevenSegmentDigit
 
 -- | Transforms seven-segment digit strings into PolicyNumbers.
 --

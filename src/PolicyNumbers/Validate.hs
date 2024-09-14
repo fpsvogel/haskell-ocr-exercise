@@ -1,10 +1,9 @@
 module PolicyNumbers.Validate (validate) where
 
-import PolicyNumber
-import ParsedDigit
-
-import Flow
 import Data.Char (digitToInt)
+import Flow
+import ParsedDigit
+import PolicyNumber
 
 -- | Checks whether a policy number is valid. A valid policy number has 9 digits
 -- | and a valid checksum, which is calculated as follows:
@@ -49,4 +48,4 @@ validate pn
   | otherwise = (dotProduct `mod` 11) == 0
   where
     reverseIntegers = show pn |> reverse |> map digitToInt
-    dotProduct = sum <| zipWith (*) [1..9] reverseIntegers
+    dotProduct = sum <| zipWith (*) [1 .. 9] reverseIntegers

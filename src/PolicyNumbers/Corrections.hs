@@ -1,13 +1,12 @@
 module PolicyNumbers.Corrections (corrections) where
 
+import Digits.Corrections
+import Digits.Parse
+import Flow
+import ParsedDigit
 import PolicyNumber
 import PolicyNumbers.Validate
-import Digits.Corrections
 import SevenSegmentDigit
-import Digits.Parse
-import ParsedDigit
-
-import Flow
 
 -- | Returns all possible corrections of the policy number specified by the given digit strings.
 --
@@ -23,7 +22,7 @@ import Flow
 corrections :: [SevenSegmentDigit] -> [PolicyNumber]
 corrections digits = map parse allCorrected |> filter validate
   where
-    allCorrected = concatMap allCorrectedAt (filter (not <. null <. snd) <| zip [0..] digitsCorrections)
+    allCorrected = concatMap allCorrectedAt (filter (not <. null <. snd) <| zip [0 ..] digitsCorrections)
     digitsCorrections = map possibleCorrections digits
     allCorrectedAt (index, digitCorrections) = map (correctedAt index) digitCorrections
     correctedAt index digitCorrection = take index digits ++ [digitCorrection] ++ drop (index + 1) digits
